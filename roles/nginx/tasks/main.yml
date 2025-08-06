@@ -26,16 +26,16 @@
   args:
     chdir: "{{ docker_nginx_dir }}"
 
-# - name: Run certbot container to generate certificate
-#   shell: docker-compose run --rm certbot
-#   args:
-#     chdir: "{{ docker_nginx_dir }}"
+- name: Run certbot container to generate certificate
+  shell: docker-compose run --rm certbot
+  args:
+    chdir: "{{ docker_nginx_dir }}"
 
-# - name: Add cron job to renew certbot and restart nginx
-#   ansible.builtin.cron:
-#     name: "Renew SSL with Certbot and restart Nginx"
-#     minute: "0"
-#     hour: "0"
-#     user: root
-#     job: "cd /opt/nginx && docker-compose run --rm certbot renew --webroot -w /var/www/html && docker restart nginx"
-#     cron_file: certbot_renew
+- name: Add cron job to renew certbot and restart nginx
+  ansible.builtin.cron:
+    name: "Renew SSL with Certbot and restart Nginx"
+    minute: "0"
+    hour: "0"
+    user: root
+    job: "cd /opt/nginx && docker-compose run --rm certbot renew --webroot -w /var/www/html && docker restart nginx"
+    cron_file: certbot_renew
