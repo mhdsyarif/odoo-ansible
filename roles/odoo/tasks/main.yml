@@ -1,0 +1,21 @@
+- name: Create Odoo directory
+  file:
+    path: /opt/odoo
+    state: directory
+    mode: '0755'
+
+- name: Copy docker-compose file
+  template:
+    src: docker-compose.yml.j2
+    dest: /opt/odoo/docker-compose.yml
+
+- name: Copy odoo.conf
+  template:
+    src: odoo.conf.j2
+    dest: /etc/odoo.conf
+    mode: 0640
+
+- name: Start Odoo via Docker Compose
+  shell: docker-compose up -d
+  args:
+    chdir: /opt/odoo

@@ -1,0 +1,4 @@
+domain_name: ["example.com"]
+email: mhdsyarif.ms@gmail.com
+docker_nginx_dir: /opt/nginx
+docker_networks: docker_networks

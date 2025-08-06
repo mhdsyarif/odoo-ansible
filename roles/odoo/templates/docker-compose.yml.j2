@@ -1,0 +1,38 @@
+version: '3.1'
+services:
+  db:
+    image: postgres:{{ POSTGRES_VERSION }}
+    container_name: odoo-db
+    environment:
+      POSTGRES_USER: {{ POSTGRES_USER }}
+      POSTGRES_PASSWORD: {{ POSTGRES_PASSWORD }}
+      POSTGRES_DB: {{ POSTGRES_DB }}
+    volumes:
+      - odoo-db:/var/lib/postgresql/data
+    networks:
+      - {{ docker_networks }}
+
+  odoo:
+    image: odoo:{{ ODOO_VERSION }}
+    container_name: odoo
+    depends_on:
+      - db
+    ports:
+      - "{{ ODOO_PORT }}:8069"
+    environment:
+      - HOST={{ ODOO_HOST }}
+      - USER={{ ODOO_USER }}
+      - PASSWORD={{ ODOO_PASSWORD }}
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+      - ./custom-addons:/mnt/extra-addons
+    networks:
+      - {{ docker_networks }}
+
+volumes:
+  odoo-db:
+  odoo-web-data:
+
+networks:
+  {{ docker_networks }}:
+    external: true

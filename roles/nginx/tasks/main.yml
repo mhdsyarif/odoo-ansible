@@ -1,0 +1,41 @@
+- name: Ensure nginx docker directory exists
+  file:
+    path: "{{ docker_nginx_dir }}"
+    state: directory
+
+- name: Create necessary folders
+  file:
+    path: "{{ docker_nginx_dir }}/{{ item }}"
+    state: directory
+  loop:
+    - certbot/conf
+    - certbot/www
+
+- name: Ensure nginx.conf is deployed
+  template:
+    src: nginx.conf.j2
+    dest: "{{ docker_nginx_dir }}/nginx.conf"
+
+- name: Ensure docker-compose.yml is deployed
+  template:
+    src: docker-compose.yml.j2
+    dest: "{{ docker_nginx_dir }}/docker-compose.yml"
+
+- name: Run nginx container
+  shell: docker-compose up -d nginx
+  args:
+    chdir: "{{ docker_nginx_dir }}"
+
+# - name: Run certbot container to generate certificate
+#   shell: docker-compose run --rm certbot
+#   args:
+#     chdir: "{{ docker_nginx_dir }}"
+
+# - name: Add cron job to renew certbot and restart nginx
+#   ansible.builtin.cron:
+#     name: "Renew SSL with Certbot and restart Nginx"
+#     minute: "0"
+#     hour: "0"
+#     user: root
+#     job: "cd /opt/nginx && docker-compose run --rm certbot renew --webroot -w /var/www/html && docker restart nginx"
+#     cron_file: certbot_renew

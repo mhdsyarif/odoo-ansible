@@ -1,0 +1,21 @@
+[options]
+admin_passwd = {{ ODOO_ADMIN_PASSWORD }}
+db_host = {{ ODOO_HOST }}
+db_port = {{ ODOO_PORT }}
+dbfilter = {{ DB_FILTER }}
+db_name = False
+db_user = {{ ODOO_USER }}
+db_password = {{ ODOO_PASSWORD }}
+data_dir = /var/lib/odoo
+
+proxy_mode = True
+
+xmlrpc_port = 8069
+limit_request = 8192
+limit_time_real = 120
+limit_time_cpu = 60
+limit_memory_soft = 512000000
+limit_memory_hard = 768000000
+
+log_level = info
+logfile = /var/log/odoo/odoo.log

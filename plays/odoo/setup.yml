@@ -1,0 +1,7 @@
+- name: Deploy Odoo with Docker Compose 
+  hosts: odoo
+  become: yes
+  roles:
+    - ../../roles/docker
+    - ../../roles/odoo
+    - ../../roles/nginx
