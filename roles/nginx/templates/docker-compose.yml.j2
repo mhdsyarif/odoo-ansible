@@ -20,10 +20,6 @@ services:
       - {{ docker_nginx_dir }}/certbot/conf:/etc/letsencrypt
       - {{ docker_nginx_dir }}/certbot/www:/var/www/html
       - /var/run/docker.sock:/var/run/docker.sock
-    command: >
-        certonly --webroot --webroot-path=/var/www/html
-        --email {{ email }} --agree-tos --no-eff-email
-        -d {{ domain_name }}
 
 networks:
   {{ docker_networks }}:
