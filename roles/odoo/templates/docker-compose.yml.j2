@@ -23,6 +23,14 @@ services:
       - HOST={{ ODOO_HOST }}
       - USER={{ ODOO_USER }}
       - PASSWORD={{ ODOO_PASSWORD }}
+    command: >
+      odoo -d {{ POSTGRES_DB }}
+           -i base
+           --without-demo=all
+           --db_host={{ ODOO_HOST }}
+           --db_user={{ ODOO_USER }}
+           --db_password={{ ODOO_PASSWORD }}
+           --log-level=info
     volumes:
       - odoo-web-data:/var/lib/odoo
       - ./custom-addons:/mnt/extra-addons
