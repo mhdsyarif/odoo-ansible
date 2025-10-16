@@ -37,7 +37,7 @@ odoo-ansible/
 ## ✅ Prerequisites
 
 * Ansible 2.9+
-* Docker & Docker Compose installed on target server
+* Docker Engine & Docker Compose installed on target server
 * SSH access to target host
 * Domain name properly pointed to server IP (A record)
 
